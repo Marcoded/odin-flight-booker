@@ -17,13 +17,13 @@
       </div>
 
       <div class="mb-4">
-        <%= f.label :passengers, "Passengers", class: "block text-gray-700 font-bold mb-2" %>
-        <%= select_tag :passengers, options_for_select([1,2,3,4]), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= f.label :num_passengers, "Passengers", class: "block text-gray-700 font-bold mb-2" %>
+        <%= select_tag :num_passengers, options_for_select([1,2,3,4]), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
 
       <div class="mb-4">
         <%= f.label :start_date, "Departure date", class: "block text-gray-700 font-bold mb-2" %>
-        <%= f.select :start_date, options_for_select(Flight.available_dates.map { |date| [date.strftime('%d-%b-%Y'), date] }), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= f.select :start_date, options_for_select(Flight.available_dates.map { |date| [date.strftime('%d-%b-%Y'), date] }), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
 
       <div class="flex items-center justify-between">
@@ -32,18 +32,29 @@
     <% end %>
   </div>
 
+ 
 
-
+<% if @searched_flights.any? %>
   <p class="text-3xl font-bold">Flights</p>
-
-  <% if @searched_flights.any? %>
-    <ul>
-      <% @searched_flights.each do |flight| %>
+  <%= form_with model: @booking, method: "post", class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4",url: new_booking_path do |f| %>
+    <% @searched_flights.each do |flight| %>
+    <%= f.hidden_field :num_passengers, value: params[:num_passengers] %>
+      <div class="flex items-center mb-4">
+        <div class="w-1/4">
+          <%= f.radio_button :flight_id, flight.id %>
+        </div>
+        <div class="w-3/4 min-w-0">
+          <p class="whitespace-nowrap">
+           <%= flight.id %> | <%= flight.departure_airport.code %> -> <%= flight.arrival_airport.code %> | <%= flight.start_date %>
+          </p>
+        </div>
         
-        <li><%= flight.id %> | <%= flight.departure_airport.code %> -> <%= flight.arrival_airport.code %> | <%= flight.start_date %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No flights match your search criteria.</p>
+      </div>
+    <% end %>
+    <div class="flex items-center justify-between">
+      <%= f.submit "Book", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
   <% end %>
-</div>
+<% else %>
+  <p>No flights match your search criteria.</p>
+<% end %>
