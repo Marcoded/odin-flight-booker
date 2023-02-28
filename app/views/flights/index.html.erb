@@ -23,7 +23,7 @@
 
       <div class="mb-4">
         <%= f.label :start_date, "Departure date", class: "block text-gray-700 font-bold mb-2" %>
-        <%= f.select :start_date, options_for_select(Flight.available_dates), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= f.select :start_date, options_for_select(Flight.available_dates.map { |date| [date.strftime('%d-%b-%Y'), date] }), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
 
       <div class="flex items-center justify-between">
