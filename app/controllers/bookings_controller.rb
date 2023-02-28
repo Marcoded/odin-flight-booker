@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
 
-  before_action :log_params
+  
 
 
   def index
@@ -11,11 +11,12 @@ class BookingsController < ApplicationController
     puts "\e[32mInitializing booking\e[0m"
     @booking = Booking.new
     @booking.flight_id = params[:flight_id]
-    @booking.num_passengers = params[:num_passengers]
+    @num_passengers = params[:num_passengers]
 
   end
 
   def create
+    redirect_to new_booking_path
   end
 
 

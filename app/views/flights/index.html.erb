@@ -36,7 +36,7 @@
 
 <% if @searched_flights.any? %>
   <p class="text-3xl font-bold">Flights</p>
-  <%= form_with model: @booking, method: "post", class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4",url: new_booking_path do |f| %>
+  <%= form_with model: @booking, method: "get", class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4", url: new_booking_path do |f| %>
     <% @searched_flights.each do |flight| %>
     <%= f.hidden_field :num_passengers, value: params[:num_passengers] %>
       <div class="flex items-center mb-4">
@@ -58,3 +58,8 @@
 <% else %>
   <p>No flights match your search criteria.</p>
 <% end %>
+
+
+
+<%# <%= link_to "Book", new_booking_path(flight_id: flight.id, num_passengers: params[:num_passengers]) %> %>
+<%="intead of submit use the link tag"%>
