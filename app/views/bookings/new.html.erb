@@ -1,10 +1,16 @@
-<div>
-  <h1 class="font-bold text-4xl">Bookings#new</h1>
-  <p>Find me in app/views/bookings/new.html.erb</p>
-</div>
-
-
-<%=@num_passengers%>
-<%=@booking.flight_id%>
-
-
+<h1>Welcome to booking.new</h1>
+<%= form_with model: @booking, class: "d-flex flex-column" do |booking_form| %>
+    <%= booking_form.hidden_field :flight_id, value: params[:flight_id] %>
+  
+      <div class="m-2 fw-bold">
+ 
+        <%= booking_form.fields_for :passengers, @booking.passengers.build do |passenger_form| %>
+          <%= passenger_form.label :name, hidden: true, class: "form-label" %>
+          <%= passenger_form.text_field :name, placeholder: "Name", class: "form-control my-3", required: true %>
+          <%= passenger_form.label :email, hidden: true, class: "form-label" %>
+          <%= passenger_form.email_field :email, placeholder: "Email", class: "form-control my-3", required: true %>
+        
+      </div>
+    <% end %>
+    <%= booking_form.submit "Confirm booking", class: "btn btn-success ml-1 flex-basis-1 m-2" %>
+  <% end %>
