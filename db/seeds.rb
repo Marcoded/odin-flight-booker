@@ -2,7 +2,7 @@
 airport_codes = ['ATL', 'LAX', 'ORD', 'DFW', 'DEN']
 
 # Define the range of dates to choose from for flight start dates
-start_date_range = Date.new(2023, 3, 1)..Date.new(2023, 3, 15)
+start_date_range = Date.new(2023, 3, 22)..Date.new(2023, 3, 30)
 
 
 airport_codes.map {|code| Airport.create(code: code)}

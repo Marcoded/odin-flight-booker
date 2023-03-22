@@ -1,1 +1,11 @@
-h1
+<h1>Booking N°<%=@booking.id%> </h1>
+<h1>Number of passeners <%=@booking.passengers.count%></h1>
+<h1>From  <%=@booking.departure_airport.code%></h1>
+<h1>to <%=@booking.arrival_airport.code%></h1>
+<%  @booking.passengers.each do |passenger| %>
+<%=passenger.name%>
+<%=passenger.email%>
+<h1>|</h1>
+
+    
+<% end %>
